@@ -1,22 +1,17 @@
 import logging
 import requests
+import socket
 import os
 import time
 import datetime
 
-
 def get_url_list():
     urls = dict()
-    urls['kompas']='https://asset.kompas.com/crops/qz_jJxyaZgGgboomdCEXsfbSpec=/0x0:998x665/740x500/data/photo/2020/03/01/5e5b52f4db896.jpg'
-    urls['its']='https://www.its.ac.id/wp-content/uploads/2017/10/logo-its-1.png'
-    urls['detik']='https://akcdn.detik.net.id/community/media/visual/2021/04/22/detikcom-ramadan-desktop-1.gif?d=1'
-    urls['file1']='https://file-examples-com.github.io/uploads/2018/04/file_example_MOV_480_700kB.mov'
-    #urls['file2']='https://file-examples-com.github.io/uploads/2018/04/file_example_MOV_1280_1_4MB.mov'
-    urls['file3']='https://file-examples-com.github.io/uploads/2017/02/zip_2MB.zip'
+    urls['sasuke']='https://pbs.twimg.com/profile_images/1254525900722331649/4GmVtUhm.jpg'
+    urls['luffy&zoro']='https://cdn0-production-images-kly.akamaized.net/ragzA1mweyuc2D3otwdNmiPH7ss=/640x360/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/2879389/original/097927800_1565594145-preview-one-piece-episode-897-0-700x394.jpg'
     return urls
 
-
-def download_gambar(url=None,tuliskefile=False):
+def download_gambar(url=None,tuliskefile='image'):
     waktu_awal = datetime.datetime.now()
     if (url is None):
         return False
@@ -28,7 +23,6 @@ def download_gambar(url=None,tuliskefile=False):
     tipe['image/jpeg']='jpg'
     tipe['application/zip']='jpg'
     tipe['video/quicktime']='mov'
-    time.sleep(2) #untuk simulasi, diberi tambahan delay 2 detik
 
     content_type = ff.headers['Content-Type']
     logging.warning(content_type)
@@ -36,20 +30,29 @@ def download_gambar(url=None,tuliskefile=False):
         namafile = os.path.basename(url)
         ekstensi = tipe[content_type]
         if (tuliskefile):
-            fp = open(f"{namafile}.{ekstensi}","wb")
+            fp = open(f"{tuliskefile}.{ekstensi}","wb")
             fp.write(ff.content)
             fp.close()
         waktu_process = datetime.datetime.now() - waktu_awal
         waktu_akhir =datetime.datetime.now()
-        logging.warning(f"writing {namafile}.{ekstensi} dalam waktu {waktu_process} {waktu_awal} s/d {waktu_akhir}")
+        logging.warning(f"writing {tuliskefile}.{ekstensi} dalam waktu {waktu_process} {waktu_awal} s/d {waktu_akhir}")
         return waktu_process
     else:
         return False
 
+def kirim_gambar(IP_ADDRESS, PORT, filename):
+    print(IP_ADDRESS, PORT, filename)
+    ukuran=os.stat(filename).st_size
+    clientSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-
+    fp=open(filename,'rb')
+    k=fp.read()
+    terkirim=0
+    for x in k:
+        k_bytes=bytes([x])
+        clientSock.sendto(k_bytes,(IP_ADDRESS,PORT))
+        terkirim=terkirim+1
 
 if __name__=='__main__':
-    #check fungsi
-    k = download_gambar('https://asset.kompas.com/crops/qz_jJxyaZgGgboomdCEXsfbSpec=/0x0:998x665/740x500/data/photo/2020/03/01/5e5b52f4db896.jpg')
+    k = download_gambar('https://pbs.twimg.com/profile_images/1254525900722331649/4GmVtUhm.jpg')
     print(k)
