@@ -11,8 +11,8 @@ def kirim_server():
     for k in urls:
         print(f"mendownload {urls[k]}")
         waktu = time.time()
-        UDP_IP_ADDRESS = "192.168.122.47"
-        UDP_IP_ADDRESS2 = "192.168.122.115"
+        UDP_IP_ADDRESS = "192.168.122.44"
+        UDP_IP_ADDRESS2 = "192.168.122.158"
         PORT = 5003
         if temp == 0:
             texec[k] = Process(target=kirim_gambar, args=(UDP_IP_ADDRESS,PORT,f"{k}.jpg"))
