@@ -12,8 +12,8 @@ def kirim_server():
         download_gambar(urls[k], k)
         print(f"mendownload {urls[k]}")
         waktu = time.time()
-        UDP_IP_ADDRESS = "192.168.122.44"
-        UDP_IP_ADDRESS2 = "192.168.122.158"
+        UDP_IP_ADDRESS = "192.168.122.93"
+        UDP_IP_ADDRESS2 = "192.168.122.244"
         PORT = 5003
         if temp == 0:
             texec[k] = threading.Thread(target=kirim_gambar, args=(UDP_IP_ADDRESS,PORT,f"{k}.jpg"))
