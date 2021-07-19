@@ -1,7 +1,7 @@
 import socket
 
 
-SERVER_IP = '127.0.0.1'
+SERVER_IP = '192.168.122.77'
 SERVER_PORT = 5005
 NAMAFILE='bart.png'
 
