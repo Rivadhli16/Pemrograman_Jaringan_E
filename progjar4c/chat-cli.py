@@ -2,7 +2,7 @@ import socket
 import os
 import json
 
-TARGET_IP = "127.0.0.1"
+TARGET_IP = "192.168.122.8"
 TARGET_PORT = 8889
 
 
@@ -78,8 +78,8 @@ class ChatClient:
 
 
 if __name__=="__main__":
-    cc = ChatClient()
+    ChatClient= ChatClient()
     while True:
-        cmdline = input("Command {}:" . format(cc.tokenid))
-        print(cc.proses(cmdline))
+        cmdline = input("Command {}:" . format(ChatClient.tokenid))
+        print(ChatClient.proses(cmdline))
 
